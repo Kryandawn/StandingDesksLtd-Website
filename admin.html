@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin panel for Standing Desks Ltd - Manage products and new arrivals">
+    <title>Admin Panel - Standing Desks Ltd</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="logo-title-wrapper">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Standing Desks Ltd Logo" width="300" height="75">
+                </div>
+                <h1 class="admin-title">Admin Panel</h1>
+            </div>
+            <nav class="admin-nav">
+                <a href="index.html" class="nav-link btn btn-secondary"><i class="fas fa-home"></i> Home</a>
+                <a href="#" id="logout-link" class="nav-link btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </div>
+    </header>
+    <main class="admin-main">
+        <div class="admin-container" style="padding: 0 2em;">
+            <div id="message-container" class="hidden"></div>
+            <button id="open-modal" class="btn btn-primary btn-large"><i class="fas fa-plus"></i> Add New Product</button>
+            <div class="admin-grid">
+                <section id="product-management" class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-box-open"></i> Product Management</h2>
+                    <form id="add-product-form" class="admin-form">
+                        <div class="form-group">
+                            <label for="product-name"><i class="fas fa-tag"></i> Product Name:</label>
+                            <input type="text" id="product-name" name="product-name" required class="form-input">
+                            <span class="error-message" id="product-name-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description"><i class="fas fa-align-left"></i> Product Description:</label>
+                            <textarea id="product-description" name="product-description" required class="form-input form-textarea" rows="4"></textarea>
+                            <span class="error-message" id="product-description-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price"><i class="fas fa-dollar-sign"></i> Price:</label>
+                            <div class="price-input-wrapper">
+                                <input type="number" id="product-price" name="product-price" required min="0.01" step="0.01" class="form-input">
+                            </div>
+                            <span class="error-message" id="product-price-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image"><i class="fas fa-image"></i> Product Image URL:</label>
+                            <input type="url" id="product-image" name="product-image" required class="form-input full-width image-url-input" placeholder="images/sample-desk.jpg" style="width: 100%;">
+                            <span class="error-message" id="product-image-error"></span>
+                        </div>
+                        <div class="form-group button-group">
+                            <button type="submit" class="btn btn-primary btn-large"><i class="fas fa-plus"></i> Add Product</button>
+                        </div>
+                    </form>
+                </section>
+                <section id="product-list" class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-list"></i> Product List</h2>
+                    <div id="product-list-container" class="product-grid">
+                        <!-- Product items will be dynamically inserted here -->
+                    </div>
+                    <p id="empty-product-list" class="empty-state-message">
+                        <i class="fas fa-box-open fa-2x"></i>
+                        <span>No products available. Add a product to get started.</span>
+                    </p>
+                </section>
+            </div>
+            <section id="edit-product" class="admin-section hidden">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Edit Product</h2>
+                <form id="edit-product-form" class="admin-form">
+                    <input type="hidden" id="edit-product-id" name="edit-product-id">
+                    <div class="form-group">
+                        <label for="edit-product-name"><i class="fas fa-tag"></i> Product Name:</label>
+                        <input type="text" id="edit-product-name" name="edit-product-name" required class="form-input">
+                        <span class="error-message" id="edit-product-name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-description"><i class="fas fa-align-left"></i> Product Description:</label>
+                        <textarea id="edit-product-description" name="edit-product-description" required class="form-input form-textarea" rows="4"></textarea>
+                        <span class="error-message" id="edit-product-description-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-price"><i class="fas fa-dollar-sign"></i> Price:</label>
+                        <div class="price-input-wrapper">
+                            <input type="number" id="edit-product-price" name="edit-product-price" required min="0.01" step="0.01" class="form-input">
+                        </div>
+                        <span class="error-message" id="edit-product-price-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-image"><i class="fas fa-image"></i> Product Image URL:</label>
+                        <input type="url" id="edit-product-image" name="edit-product-image" required class="form-input full-width image-url-input" placeholder="images/sample-desk.jpg" style="width: 100%;">
+                        <span class="error-message" id="edit-product-image-error"></span>
+                    </div>
+                    <div class="form-group button-group">
+                        <button type="submit" class="btn btn-primary btn-large"><i class="fas fa-save"></i> Save Changes</button>
+                        <button type="button" id="cancel-edit" class="btn btn-secondary btn-large"><i class="fas fa-times"></i> Cancel</button>
+                    </div>
+                </form>
+            </section>
+            <section id="new-arrivals-management" class="admin-section">
+                <h2 class="section-title"><i class="fas fa-star"></i> New Arrivals Management</h2>
+                <form id="new-arrivals-form" class="admin-form">
+                    <div class="form-group">
+                        <label for="arrival-name"><i class="fas fa-tag"></i> Product Name:</label>
+                        <input type="text" id="arrival-name" name="arrival-name" required class="form-input">
+                        <span class="error-message" id="arrival-name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival-description"><i class="fas fa-align-left"></i> Product Description:</label>
+                        <textarea id="arrival-description" name="arrival-description" required class="form-input form-textarea" rows="4"></textarea>
+                        <span class="error-message" id="arrival-description-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival-price"><i class="fas fa-dollar-sign"></i> Price:</label>
+                        <div class="price-input-wrapper">
+                            <input type="number" id="arrival-price" name="arrival-price" required min="0.01" step="0.01" class="form-input">
+                        </div>
+                        <span class="error-message" id="arrival-price-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival-image"><i class="fas fa-image"></i> Product Image URL:</label>
+                        <input type="url" id="arrival-image" name="arrival-image" required class="form-input full-width image-url-input" placeholder="images/sample-desk.jpg" style="width: 100%;">
+                        <span class="error-message" id="arrival-image-error"></span>
+                    </div>
+                    <div class="form-group button-group">
+                        <button type="submit" class="btn btn-primary btn-large"><i class="fas fa-plus"></i> Add New Arrival</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+    <footer class="admin-footer">
+        <div class="admin-footer-content">
+            <p>&copy; 2024 Standing Desks Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+    <div class="scroll-indicator"></div>
+    <div id="modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <h2 class="modal-title">Add New Product</h2>
+            <span id="close-modal" class="close">&times;</span>
+            <form id="modal-add-product-form" class="admin-form">
+                <div class="form-group">
+                    <label for="modal-product-name"><i class="fas fa-tag"></i> Product Name:<span class="required">*</span></label>
+                    <input type="text" id="modal-product-name" name="modal-product-name" required class="form-input" placeholder="Enter product name">
+                    <span class="error-message" id="modal-product-name-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-product-description"><i class="fas fa-align-left"></i> Product Description:<span class="required">*</span></label>
+                    <textarea id="modal-product-description" name="modal-product-description" required class="form-input form-textarea" rows="4" placeholder="Enter product description"></textarea>
+                    <span class="error-message" id="modal-product-description-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-product-price"><i class="fas fa-dollar-sign"></i> Price:<span class="required">*</span></label>
+                    <div class="price-input-wrapper">
+                        <input type="number" id="modal-product-price" name="modal-product-price" required min="0.01" step="0.01" class="form-input" placeholder="Enter price">
+                    </div>
+                    <span class="error-message" id="modal-product-price-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-product-image"><i class="fas fa-image"></i> Product Image:<span class="required">*</span></label>
+                    <div class="image-input-wrapper">
+                        <input type="url" id="modal-product-image" name="modal-product-image" required class="form-input full-width image-url-input" placeholder="Enter image URL">
+                        <input type="file" id="modal-product-image-file" name="modal-product-image-file" accept="image/*" class="form-input file-input">
+                        <label for="modal-product-image-file" class="file-input-label btn btn-secondary" title="Upload an image file">
+                            <i class="fas fa-upload"></i> Choose File
+                        </label>
+                    </div>
+                    <span class="error-message" id="modal-product-image-error"></span>
+                </div>
+                <div class="form-group button-group">
+                    <button type="submit" class="btn btn-primary btn-large"><i class="fas fa-plus"></i> Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/admin.js" defer></script>
+</body>
+</html>

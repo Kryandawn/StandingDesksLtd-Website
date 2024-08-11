@@ -1,0 +1,81 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Advanced Treadmill Desk",
+      "description": "A state-of-the-art treadmill desk for the ultimate work-and-workout experience.",
+      "price": 1499.99,
+      "imageUrl": "/images/advanced-treadmill-desk.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Compact Laptop Desk",
+      "description": "A space-saving desk perfect for small home offices or apartments.",
+      "price": 299.99,
+      "imageUrl": "/images/compact-laptop-desk.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Corner Desk",
+      "description": "Maximize your office space with this ergonomic corner desk design.",
+      "price": 449.99,
+      "imageUrl": "/images/corner-desk.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Ergonomic Desk",
+      "description": "Designed for comfort and productivity, with adjustable height and tilt.",
+      "price": 599.99,
+      "imageUrl": "/images/ergonomic-desk.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Executive L-Shaped Desk",
+      "description": "A professional-grade L-shaped desk for the corner office.",
+      "price": 899.99,
+      "imageUrl": "/images/executive-l-shaped-desk.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Floor Standing Desk",
+      "description": "A sturdy and stylish floor-standing desk with ample workspace.",
+      "price": 399.99,
+      "imageUrl": "/images/floor-standing-desk.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Laptop Desk",
+      "description": "A portable and adjustable desk perfect for laptops and tablets.",
+      "price": 199.99,
+      "imageUrl": "/images/laptop-desk.jpg"
+    },
+    {
+      "id": 8,
+      "name": "L-Shaped Desk",
+      "description": "An L-shaped desk offering plenty of surface area for multi-monitor setups.",
+      "price": 749.99,
+      "imageUrl": "/images/l-shaped-desk.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Premium Floor Standing Desk",
+      "description": "Our top-of-the-line floor standing desk with premium finishes and features.",
+      "price": 799.99,
+      "imageUrl": "/images/premium-floor-standing-desk.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Treadmill Desk",
+      "description": "Stay active while you work with this integrated treadmill desk.",
+      "price": 1299.99,
+      "imageUrl": "/images/treadmill-desk.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Devin's Test Desk",
+      "description": "This is a test description for Devin's Test Desk.",
+      "price": 399.99,
+      "imageUrl": "/images/test-desk.jpg"
+    }
+  ]
+}

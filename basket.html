@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standing Desks Ltd - Basket</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <div id="logo">
+                <h1>Standing Desks Ltd</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rising_desks.html">Rising Desks</a></li>
+                <li><a href="health_benefits.html">Health Benefits</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="basket.html" class="active">Basket</a></li>
+                <li><a href="#" id="basket-icon"><i class="fas fa-shopping-cart"></i> <span id="basket-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="basket-section">
+            <h2>Your Basket</h2>
+            <table id="basket-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="basket-items">
+                    <!-- Basket items will be dynamically inserted here -->
+                </tbody>
+            </table>
+            <div id="empty-basket-message" class="hidden">
+                <p>Your basket is empty. Add some products to get started!</p>
+            </div>
+            <div id="basket-summary">
+                <p id="basket-total">Total: $0.00</p>
+                <button id="checkout-button" class="btn-primary">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Follow us on social media</p>
+        <!-- Social media links -->
+        <a href="https://facebook.com" target="_blank">Facebook</a>
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+    </footer>
+
+    <!-- Floating basket -->
+    <div id="floating-basket" class="hidden">
+        <div class="basket-header">
+            <h3>Your Basket</h3>
+            <button id="close-basket" class="close-btn">&times;</button>
+        </div>
+        <div id="floating-basket-items"></div>
+        <div class="basket-footer">
+            <p>Total: <span id="floating-basket-total">$0.00</span></p>
+            <button id="floating-checkout-btn" class="btn-primary">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Modal for user information -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Delivery Information</h2>
+            <form id="user-info-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit" id="submit-order" class="btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/basket.js" type="module"></script>
+    <script src="js/form.js" type="module"></script>
+    <script src="js/productDisplay.js" type="module"></script>
+    <script src="js/search.js" type="module"></script>
+</body>
+</html>

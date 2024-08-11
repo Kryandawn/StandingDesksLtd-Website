@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standing Desks Ltd - Home</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/basket.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/main-content.css">
+    <link rel="stylesheet" href="css/featured-product.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <div id="logo">
+                <h1>Standing Desks Ltd</h1>
+            </div>
+            <div id="search-container">
+                <div id="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search for standing desks...">
+                    <button id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="searchResults"></div>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rising_desks.html">Rising Desks</a></li>
+                <li><a href="health_benefits.html">Health Benefits</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="#" id="basket-icon"><i class="fas fa-shopping-cart"></i> <span id="basket-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="special-offers">
+            <h2>Special Offers</h2>
+            <img src="img/special-offer.jpg" alt="Special Offer">
+            <p>Discover our special offers on standing desks and improve your health while you work!</p>
+        </section>
+        <section id="featured-products">
+            <h2>Featured Desks</h2>
+            <!-- Content for featured desks -->
+            <article class="product">
+                <img src="img/featured-desk1.jpg" alt="Featured Desk 1">
+                <h3>Desk 1</h3>
+                <p>Description for Desk 1...</p>
+            </article>
+            <article class="product">
+                <img src="img/featured-desk2.jpg" alt="Featured Desk 2">
+                <h3>Desk 2</h3>
+                <p>Description for Desk 2...</p>
+            </article>
+            <article class="product">
+                <img src="img/featured-desk3.jpg" alt="Featured Desk 3">
+                <h3>Desk 3</h3>
+                <p>Description for Desk 3...</p>
+            </article>
+        </section>
+        <section id="health-benefits">
+            <h2>Health Benefits</h2>
+            <p>Learn about the health benefits of using standing desks.</p>
+            <!-- Multimedia elements for health benefits -->
+            <video controls>
+                <source src="media/health-benefits.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+    </main>
+    <footer>
+        <p>Follow us on social media</p>
+        <!-- Social media links with icons -->
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    </footer>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <p>Hello! Welcome to Standing Desks Ltd!</p>
+        </div>
+    </div>
+    <script src="js/scripts.js" type="module"></script>
+</body>
+</html>
