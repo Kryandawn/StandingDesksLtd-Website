@@ -92,20 +92,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   displayProducts();
 
   // Event delegation for buy now and add to cart buttons
-  document.getElementById('desk-grid').addEventListener('click', (event) => {
-    if (event.target.classList.contains('buy-now-btn')) {
-      const productId = event.target.dataset.id;
-      const price = parseFloat(event.target.dataset.price);
-      console.log(`Buy Now clicked for product ${productId} at price $${price}`);
-      showCheckoutModal(productId, price);
-    } else if (event.target.classList.contains('add-to-cart-btn')) {
-      const productId = event.target.dataset.id;
-      const price = parseFloat(event.target.dataset.price);
-      console.log(`Add to Cart clicked for product ${productId} at price $${price}`);
-      // Implement add to cart functionality
-      // For example: addToBasket(productId, price);
-    }
-  });
+  const deskGrid = document.getElementById('desk-grid');
+  if (deskGrid) {
+    deskGrid.addEventListener('click', (event) => {
+      if (event.target.classList.contains('buy-now-btn')) {
+        const productId = event.target.dataset.id;
+        const price = parseFloat(event.target.dataset.price);
+        console.log(`Buy Now clicked for product ${productId} at price $${price}`);
+        showCheckoutModal(productId, price);
+      } else if (event.target.classList.contains('add-to-cart-btn')) {
+        const productId = event.target.dataset.id;
+        const price = parseFloat(event.target.dataset.price);
+        console.log(`Add to Cart clicked for product ${productId} at price $${price}`);
+        // Implement add to cart functionality
+        // For example: addToBasket(productId, price);
+      }
+    });
+  } else {
+    console.error('Desk grid element not found');
+  }
 
   // Close modal when clicking outside
   window.addEventListener('click', (event) => {
