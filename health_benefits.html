@@ -1,2 +1,152 @@
-<video controls src="/videos/health-benefits.mp4">Your browser does not support the video tag.</video>
-<audio controls src="/audio/health-benefits.mp3">Your browser does not support the audio element.</audio>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Benefits of Standing Desks | Standing Desks Ltd</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/basket.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/main-content.css">
+    <link rel="stylesheet" href="css/health-benefits.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <div id="logo">
+                <img src="images/standing-desks-logo.png" alt="Standing Desks Ltd Logo" width="200" height="50">
+            </div>
+            <div id="search-container">
+                <div id="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search desks...">
+                    <button id="searchButton" class="btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rising_desks.html">Rising Desks</a></li>
+                <li><a href="health_benefits.html" class="active">Health Benefits</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="#" id="basket-icon" aria-label="Shopping basket"><i class="fas fa-shopping-cart"></i> <span id="basket-count" class="badge">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Health Benefits of Standing Desks</h1>
+
+        <section class="intro">
+            <p>Standing desks offer numerous health benefits that can significantly improve your well-being and productivity. Learn about these advantages and why you should consider incorporating a standing desk into your workspace.</p>
+        </section>
+
+        <section class="video-section">
+            <h2>Watch: The Benefits of Standing Desks</h2>
+            <video controls width="100%" height="auto" poster="images/standing-desk-benefits-poster.jpg" style="max-width: 800px; margin: 0 auto; display: block;">
+                <source src="videos/health-benefits.mp4" type="video/mp4">
+                <source src="videos/health-benefits.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <section class="benefits-list">
+            <h2>Key Health Benefits</h2>
+            <ul>
+                <li>Reduced risk of obesity, type 2 diabetes, and cardiovascular disease</li>
+                <li>Lowered risk of cancer</li>
+                <li>Lower long-term mortality risk</li>
+                <li>Reduced back pain</li>
+                <li>Improved mood and energy levels</li>
+                <li>Boosted productivity</li>
+            </ul>
+        </section>
+
+        <section class="audio-section">
+            <h2>Listen: Expert Insights on Standing Desks</h2>
+            <audio controls preload="metadata">
+                <source src="audio/expert_insights_on_standing_desks.mp3" type="audio/mpeg">
+                <source src="audio/expert_insights_on_standing_desks.ogg" type="audio/ogg">
+                Your browser does not support the audio element. Please download the <a href="audio/expert_insights_on_standing_desks.mp3">audio file</a> to listen.
+            </audio>
+        </section>
+
+        <section class="cta">
+            <h2>Experience the Benefits Yourself</h2>
+            <p>Ready to improve your health and productivity? Check out our range of standing desks and find the perfect fit for your workspace.</p>
+            <a href="rising_desks.html" class="cta-button">Shop Standing Desks</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Standing Desks Ltd is committed to providing high-quality rising desks for a healthier work environment.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rising_desks.html">Rising Desks</a></li>
+                    <li><a href="health_benefits.html">Health Benefits</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Standing Desks Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="floating-basket" class="hidden">
+        <div class="basket-header">
+            <h3>Your Basket</h3>
+            <button id="close-basket" class="close-btn" aria-label="Close basket"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="basket-items"></div>
+        <div class="basket-footer">
+            <p>Total: <span id="basket-total">$0.00</span></p>
+            <button id="checkout-btn" class="btn-primary">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Delivery Information</h2>
+            <form id="user-info-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit" class="btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/scripts.js" type="module"></script>
+    <script src="js/basket.js" type="module"></script>
+    <script src="js/search.js" type="module"></script>
+    <script src="js/form.js" type="module"></script>
+</body>
+</html>

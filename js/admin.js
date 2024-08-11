@@ -145,11 +145,14 @@ document.addEventListener('DOMContentLoaded', function() {
         clearErrorMessages();
     }
 
-    // Function to fetch product list from server
+    // Function to fetch product list from JSON file
     function fetchProductList() {
-        fetch('/api/products')
+        fetch('/js/products.json')
             .then(response => {
                 if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Products file not found');
+                    }
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
@@ -160,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error fetching product list:', error);
-                displayErrorMessage('Failed to load products. Please try again.');
+                displayErrorMessage(`Failed to load products: ${error.message}. Please try again.`);
             });
     }
 
