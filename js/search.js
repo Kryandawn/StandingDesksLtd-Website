@@ -6,6 +6,12 @@ let searchInput, searchResults, searchButton;
 let products = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Check if we're on the rising_desks.html page
+  if (!window.location.pathname.includes('rising_desks.html')) {
+    console.log('Not on rising_desks.html, skipping search initialization');
+    return;
+  }
+
   searchInput = document.querySelector('#searchInput');
   searchResults = document.querySelector('#searchResults');
   searchButton = document.querySelector('#searchButton');

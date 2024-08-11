@@ -17,6 +17,12 @@ async function fetchProducts() {
 
 // Function to display products in the grid
 function displayProducts(productsToDisplay = products) {
+  // Check if we're on the health benefits page
+  if (window.location.pathname.includes('health_benefits.html')) {
+    console.log('On Health Benefits page, skipping product display');
+    return;
+  }
+
   const productGrid = document.getElementById('desk-grid');
   if (!productGrid) {
     console.error('Product grid element not found');
@@ -88,28 +94,33 @@ function showCheckoutModal(productId, price) {
 
 // Initialize product display
 document.addEventListener('DOMContentLoaded', async () => {
-  await fetchProducts();
-  displayProducts();
+  // Check if we're on the health benefits page
+  if (!window.location.pathname.includes('health_benefits.html')) {
+    await fetchProducts();
+    displayProducts();
 
-  // Event delegation for buy now and add to cart buttons
-  const deskGrid = document.getElementById('desk-grid');
-  if (deskGrid) {
-    deskGrid.addEventListener('click', (event) => {
-      if (event.target.classList.contains('buy-now-btn')) {
-        const productId = event.target.dataset.id;
-        const price = parseFloat(event.target.dataset.price);
-        console.log(`Buy Now clicked for product ${productId} at price $${price}`);
-        showCheckoutModal(productId, price);
-      } else if (event.target.classList.contains('add-to-cart-btn')) {
-        const productId = event.target.dataset.id;
-        const price = parseFloat(event.target.dataset.price);
-        console.log(`Add to Cart clicked for product ${productId} at price $${price}`);
-        // Implement add to cart functionality
-        // For example: addToBasket(productId, price);
-      }
-    });
+    // Event delegation for buy now and add to cart buttons
+    const deskGrid = document.getElementById('desk-grid');
+    if (deskGrid) {
+      deskGrid.addEventListener('click', (event) => {
+        if (event.target.classList.contains('buy-now-btn')) {
+          const productId = event.target.dataset.id;
+          const price = parseFloat(event.target.dataset.price);
+          console.log(`Buy Now clicked for product ${productId} at price $${price}`);
+          showCheckoutModal(productId, price);
+        } else if (event.target.classList.contains('add-to-cart-btn')) {
+          const productId = event.target.dataset.id;
+          const price = parseFloat(event.target.dataset.price);
+          console.log(`Add to Cart clicked for product ${productId} at price $${price}`);
+          // Implement add to cart functionality
+          // For example: addToBasket(productId, price);
+        }
+      });
+    } else {
+      console.log('Desk grid element not found. This might be expected on non-product pages.');
+    }
   } else {
-    console.error('Desk grid element not found');
+    console.log('On health benefits page, skipping product display initialization');
   }
 
   // Close modal when clicking outside

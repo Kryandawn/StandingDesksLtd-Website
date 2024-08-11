@@ -4,30 +4,48 @@ let products = [];
 
 document.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
-  console.log('Initializing basket functionality');
+  const currentPage = window.location.pathname.split('/').pop();
+  console.log(`Current page: ${currentPage}`);
 
-  const userInfoForm = document.getElementById('user-info-form');
-  const modal = document.getElementById('modal');
-  const closeModalBtn = document.getElementById('close-modal');
-  const checkoutButton = document.getElementById('checkout-btn');
+  // Check if we're on a relevant page for basket functionality
+  if (!['contact.html', 'health_benefits.html'].includes(currentPage)) {
+    console.log('Initializing basket functionality');
+    initializeBasketFunctionality();
+  } else {
+    console.log('Skipping basket functionality initialization for this page');
+  }
 
-  // Check for required elements
-  const requiredElements = [
-    { element: userInfoForm, name: 'User info form' },
-    { element: modal, name: 'Modal' },
-    { element: closeModalBtn, name: 'Close modal button' },
-    { element: checkoutButton, name: 'Checkout button' }
-  ];
+  function initializeBasketFunctionality() {
+    // Basket initialization code will be moved here
+  }
 
-  requiredElements.forEach(({ element, name }) => {
+  // Define a function to safely get elements
+  function safeGetElement(id, fallback = null) {
+    const element = document.getElementById(id);
     if (!element) {
-      console.error(`${name} not found`);
+      console.warn(`Element with id '${id}' not found.`);
+      return fallback;
     }
+    return element;
+  }
+
+  // Safely get required elements
+  const userInfoForm = safeGetElement('user-info-form');
+  const modal = safeGetElement('modal');
+  const closeModalBtn = safeGetElement('close-modal');
+  const checkoutButton = safeGetElement('checkout-btn');
+
+  // Log the status of required elements
+  console.log('Required elements status:', {
+    userInfoForm: !!userInfoForm,
+    modal: !!modal,
+    closeModalBtn: !!closeModalBtn,
+    checkoutButton: !!checkoutButton
   });
 
-  // Ensure userInfoForm is defined before use
+  // Create a placeholder form if userInfoForm is not found
   if (!userInfoForm) {
-    console.error('User info form not found. Creating a placeholder.');
+    console.warn('Creating a placeholder for user info form.');
     const userInfoFormPlaceholder = document.createElement('form');
     userInfoFormPlaceholder.id = 'user-info-form';
     document.body.appendChild(userInfoFormPlaceholder);
@@ -35,69 +53,75 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Modal popup functionality
   function showModal() {
+    const modal = document.getElementById('modal');
     if (modal) {
       modal.style.display = 'block';
     } else {
-      console.error('Modal element not found');
+      console.warn('Modal element not found');
     }
   }
 
   function hideModal() {
+    const modal = document.getElementById('modal');
     if (modal) {
       modal.style.display = 'none';
     }
   }
 
-  if (checkoutButton) {
-    checkoutButton.addEventListener('click', showModal);
-    console.log('Checkout button event listener added');
-  }
+  function initializeModalFunctionality() {
+    const checkoutButton = document.getElementById('checkout-btn');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modal = document.getElementById('modal');
 
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', hideModal);
-    console.log('Close modal button event listener added');
-  }
-
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', hideModal);
-    console.log('Close modal button event listener added');
-  } else {
-    console.error('Close modal button not found');
-  }
-
-  // Ensure modal is hidden when clicking outside
-  window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      hideModal();
+    if (checkoutButton) {
+      checkoutButton.addEventListener('click', showModal);
+      console.log('Checkout button event listener added');
     }
-  });
 
-  window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      hideModal();
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', hideModal);
+      console.log('Close modal button event listener added');
+    } else {
+      console.warn('Close modal button not found');
     }
-  });
+
+    // Ensure modal is hidden when clicking outside
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        hideModal();
+      }
+    });
+  }
+
+  // Initialize modal functionality if we're on a page with a modal
+  if (document.getElementById('modal')) {
+    initializeModalFunctionality();
+  }
 
 
 
   // Basket functionality
-  let basketItems = document.getElementById('basket-items');
-  let basketTotal = document.getElementById('basket-total');
-  let basketIcon = document.getElementById('basket-icon');
-  let floatingBasket = document.getElementById('floating-basket');
-  let basketCount = document.getElementById('basket-count');
-  let userInfoSection = document.getElementById('user-info-section');
+  let basketItems, basketTotal, basketIcon, floatingBasket, basketCount, userInfoSection;
   let basket = [];
 
-  console.log('Basket elements:', {
-    basketItems: !!basketItems,
-    basketTotal: !!basketTotal,
-    basketIcon: !!basketIcon,
-    floatingBasket: !!floatingBasket,
-    basketCount: !!basketCount,
-    userInfoSection: !!userInfoSection,
-    userInfoForm: !!userInfoForm
-  });
+  function initializeBasketElements() {
+    basketItems = document.getElementById('basket-items');
+    basketTotal = document.getElementById('basket-total');
+    basketIcon = document.getElementById('basket-icon');
+    floatingBasket = document.getElementById('floating-basket');
+    basketCount = document.getElementById('basket-count');
+    userInfoSection = document.getElementById('user-info-section');
+
+    console.log('Basket elements:', {
+      basketItems: !!basketItems,
+      basketTotal: !!basketTotal,
+      basketIcon: !!basketIcon,
+      floatingBasket: !!floatingBasket,
+      basketCount: !!basketCount,
+      userInfoSection: !!userInfoSection,
+      userInfoForm: !!userInfoForm
+    });
+  }
 
   function addItemToBasket(productId, price) {
     console.log(`Adding item to basket: Product ID ${productId}, Price $${price}`);
@@ -148,18 +172,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (basketTotal) {
       basketTotal.textContent = `$${total.toFixed(2)}`;
       console.log('Updated basketTotal element:', basketTotal.textContent);
-    } else {
-      console.warn('basketTotal element not found');
     }
-    if (basketIcon) {
+    if (basketIcon && basketCount) {
       const itemCount = basket.reduce((sum, item) => sum + item.quantity, 0);
       console.log('Total item count:', itemCount);
       basketIcon.setAttribute('data-count', itemCount);
       basketCount.textContent = itemCount;
       basketIcon.classList.toggle('has-items', itemCount > 0);
       console.log('Updated basketIcon:', { dataCount: itemCount, hasItems: itemCount > 0 });
-    } else {
-      console.warn('basketIcon element not found');
     }
   }
 
@@ -194,24 +214,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   function showFloatingBasket() {
-    const floatingBasket = document.getElementById('floating-basket');
     if (floatingBasket) {
       floatingBasket.classList.remove('hidden');
       floatingBasket.classList.add('show');
-    } else {
-      console.warn('Floating basket element not found');
     }
   }
 
   function hideFloatingBasket() {
-    const floatingBasket = document.getElementById('floating-basket');
     if (floatingBasket) {
       floatingBasket.classList.remove('show');
       floatingBasket.classList.add('hidden');
-    } else {
-      console.warn('Floating basket element not found');
     }
   }
+
+  // Initialize basket elements when the script loads
+  initializeBasketElements();
 
   // Event delegation for basket item controls
   if (basketItems) {
@@ -393,15 +410,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Function to populate the desk grid
   function populateDeskGrid(filteredProducts = products, activeCategory = 'All Desks') {
-    // Check if we're on the Contact page
-    if (window.location.pathname.includes('contact.html')) {
-      console.log('On Contact page, skipping desk grid population');
+    // Check if we're on a page where the desk grid should be populated
+    const currentPage = window.location.pathname;
+    const pagesToSkip = ['contact.html', 'health_benefits.html', 'basket.html', 'admin.html'];
+    if (pagesToSkip.some(page => currentPage.includes(page))) {
+      console.log(`On ${currentPage}, skipping desk grid population`);
       return;
     }
 
     const deskGrid = document.getElementById('desk-grid') || document.getElementById('deskGrid');
     if (!deskGrid) {
-      console.error('Desk grid element not found. Make sure the element with id "desk-grid" or "deskGrid" exists.');
+      console.error('Desk grid element not found. This is expected on pages without product listings.');
       return;
     }
 
@@ -409,54 +428,62 @@ document.addEventListener('DOMContentLoaded', (event) => {
     deskGrid.innerHTML = '';
 
     if (!Array.isArray(fetchedProducts) || fetchedProducts.length === 0) {
-      const errorMessage = document.createElement('p');
-      errorMessage.textContent = 'No products available. Please try again later.';
-      errorMessage.classList.add('error-message');
-      deskGrid.appendChild(errorMessage);
+      displayErrorMessage(deskGrid, 'No products available. Please try again later.');
       return;
     }
 
     // Add featured product
     const featuredProduct = fetchedProducts.find(p => p.featured) || filteredProducts[0] || fetchedProducts[0];
     if (featuredProduct) {
-      const featuredSection = document.createElement('section');
-      featuredSection.classList.add('featured-product');
-      featuredSection.innerHTML = createProductHTML(featuredProduct, true);
-      deskGrid.appendChild(featuredSection);
+      addFeaturedProduct(deskGrid, featuredProduct);
     }
 
     // Group remaining products by category
     const categories = ['All Desks', 'Floor-Standing Desks', 'L-Shaped Desks', 'Corner Desks', 'Laptop Desks', 'Treadmill Desks'];
     categories.forEach(category => {
       let categoryProducts = filterProductsByCategory(filteredProducts, category, featuredProduct ? featuredProduct.id : null);
-
-      if (categoryProducts.length > 0 || category === activeCategory) {
-        const categorySection = createCategorySection(category, activeCategory);
-        const productGrid = document.createElement('div');
-        productGrid.classList.add('desk-category-items');
-
-        categoryProducts.forEach(product => {
-          if (product) {
-            const deskItem = document.createElement('div');
-            deskItem.classList.add('desk-item');
-            deskItem.innerHTML = createProductHTML(product);
-            productGrid.appendChild(deskItem);
-          }
-        });
-
-        if (productGrid.children.length > 0) {
-          categorySection.appendChild(productGrid);
-          deskGrid.appendChild(categorySection);
-        }
-      }
+      addCategoryProducts(deskGrid, category, categoryProducts, activeCategory);
     });
 
     // If no products are displayed, show a message
     if (deskGrid.children.length === 0) {
-      const noProductsMessage = document.createElement('p');
-      noProductsMessage.textContent = 'No products found matching your criteria.';
-      noProductsMessage.classList.add('no-products-message');
-      deskGrid.appendChild(noProductsMessage);
+      displayErrorMessage(deskGrid, 'No products found matching your criteria.', 'no-products-message');
+    }
+  }
+
+  function displayErrorMessage(container, message, className = 'error-message') {
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = message;
+    errorMessage.classList.add(className);
+    container.appendChild(errorMessage);
+  }
+
+  function addFeaturedProduct(container, product) {
+    const featuredSection = document.createElement('section');
+    featuredSection.classList.add('featured-product');
+    featuredSection.innerHTML = createProductHTML(product, true);
+    container.appendChild(featuredSection);
+  }
+
+  function addCategoryProducts(container, category, products, activeCategory) {
+    if (products.length > 0 || category === activeCategory) {
+      const categorySection = createCategorySection(category, activeCategory);
+      const productGrid = document.createElement('div');
+      productGrid.classList.add('desk-category-items');
+
+      products.forEach(product => {
+        if (product) {
+          const deskItem = document.createElement('div');
+          deskItem.classList.add('desk-item');
+          deskItem.innerHTML = createProductHTML(product);
+          productGrid.appendChild(deskItem);
+        }
+      });
+
+      if (productGrid.children.length > 0) {
+        categorySection.appendChild(productGrid);
+        container.appendChild(categorySection);
+      }
     }
   }
 
@@ -537,59 +564,67 @@ function createProductHTML(product, isFeatured = false) {
     return description.substr(0, maxLength) + '...';
   }
 
-  // Call the function to populate the desk grid
-  populateDeskGrid();
+  // Check if we're on the health benefits page
+  if (!window.location.pathname.includes('health_benefits.html')) {
+    // Call the function to populate the desk grid
+    populateDeskGrid();
 
-  // Add event listener for "Buy Now", "Add to Cart" buttons and category navigation
-  if (document.getElementById('desk-grid') || document.getElementById('category-nav')) {
-    document.addEventListener('click', function(event) {
-      console.log('Click event detected:', event.target);
+    // Add event listener for "Buy Now", "Add to Cart" buttons and category navigation
+    if (document.getElementById('desk-grid') || document.getElementById('category-nav')) {
+      document.addEventListener('click', function(event) {
+        console.log('Click event detected:', event.target);
 
-      if (event.target.classList.contains('buy-now-btn') || event.target.classList.contains('add-to-cart-btn')) {
-        console.log('Buy Now or Add to Cart button clicked');
-        const productId = parseInt(event.target.getAttribute('data-id'));
-        const price = parseFloat(event.target.getAttribute('data-price'));
-        if (event.target.classList.contains('buy-now-btn')) {
-          console.log('Buy Now clicked for product:', productId);
-          addItemToBasket(productId, price);
-          // Redirect to checkout page or show checkout modal
-          // TODO: Implement checkout functionality
-        } else {
-          console.log('Add to Cart clicked for product:', productId);
-          addItemToBasket(productId, price);
+        if (event.target.classList.contains('buy-now-btn') || event.target.classList.contains('add-to-cart-btn')) {
+          console.log('Buy Now or Add to Cart button clicked');
+          const productId = parseInt(event.target.getAttribute('data-id'));
+          const price = parseFloat(event.target.getAttribute('data-price'));
+          if (event.target.classList.contains('buy-now-btn')) {
+            console.log('Buy Now clicked for product:', productId);
+            addItemToBasket(productId, price);
+            // Redirect to checkout page or show checkout modal
+            // TODO: Implement checkout functionality
+          } else {
+            console.log('Add to Cart clicked for product:', productId);
+            addItemToBasket(productId, price);
+          }
+        } else if (event.target.closest('#category-nav')) {
+          const categoryLink = event.target.closest('a');
+          if (categoryLink) {
+            console.log('Category link clicked:', categoryLink);
+            event.preventDefault();
+            const category = categoryLink.getAttribute('data-category');
+            console.log('Updating category to:', category);
+            updateActiveCategory(category);
+            populateDeskGrid(products, category);
+          }
         }
-      } else if (event.target.closest('#category-nav')) {
-        const categoryLink = event.target.closest('a');
-        if (categoryLink) {
-          console.log('Category link clicked:', categoryLink);
-          event.preventDefault();
-          const category = categoryLink.getAttribute('data-category');
-          console.log('Updating category to:', category);
-          updateActiveCategory(category);
-          populateDeskGrid(products, category);
-        }
-      }
-    });
+      });
+    } else {
+      console.log('Product-related elements not found on this page');
+    }
   } else {
-    console.log('Product-related elements not found on this page');
+    console.log('On health benefits page, skipping product-related functionality');
   }
 
-  // Ensure category buttons are working
-  const categoryNav = document.getElementById('category-nav');
-  if (categoryNav) {
-    const categoryButtons = categoryNav.querySelectorAll('a');
-    categoryButtons.forEach(button => {
-      console.log('Category button found:', button);
-      button.addEventListener('click', function(event) {
-        console.log('Category button clicked:', this);
-        event.preventDefault();
-        const category = this.getAttribute('data-category');
-        updateActiveCategory(category);
-        populateDeskGrid(products, category);
+  // Check if we're on the health benefits page
+  if (!window.location.pathname.includes('health_benefits.html')) {
+    // Ensure category buttons are working
+    const categoryNav = document.getElementById('category-nav');
+    if (categoryNav) {
+      const categoryButtons = categoryNav.querySelectorAll('a');
+      categoryButtons.forEach(button => {
+        console.log('Category button found:', button);
+        button.addEventListener('click', function(event) {
+          console.log('Category button clicked:', this);
+          event.preventDefault();
+          const category = this.getAttribute('data-category');
+          updateActiveCategory(category);
+          populateDeskGrid(products, category);
+        });
       });
-    });
-  } else {
-    console.log('Category navigation not found on this page');
+    } else {
+      console.log('Category navigation not found on this page');
+    }
   }
 
   function updateActiveCategory(category) {
@@ -599,49 +634,52 @@ function createProductHTML(product, isFeatured = false) {
     });
   }
 
-  // Add event listeners for filter form inputs and submission
-  const filterForm = document.getElementById('filter-form');
-  if (filterForm) {
-    const minHeightInput = document.getElementById('min-height');
-    const maxHeightInput = document.getElementById('max-height');
-    const minPriceInput = document.getElementById('min-price');
-    const maxPriceInput = document.getElementById('max-price');
-    const heightRangeDisplay = document.getElementById('height-range-display');
-    const priceRangeDisplay = document.getElementById('price-range-display');
+  // Check if we're on the health benefits page
+  if (!window.location.pathname.includes('health_benefits.html')) {
+    // Add event listeners for filter form inputs and submission
+    const filterForm = document.getElementById('filter-form');
+    if (filterForm) {
+      const minHeightInput = document.getElementById('min-height');
+      const maxHeightInput = document.getElementById('max-height');
+      const minPriceInput = document.getElementById('min-price');
+      const maxPriceInput = document.getElementById('max-price');
+      const heightRangeDisplay = document.getElementById('height-range-display');
+      const priceRangeDisplay = document.getElementById('price-range-display');
 
-    if (minHeightInput && maxHeightInput && heightRangeDisplay) {
-      [minHeightInput, maxHeightInput].forEach(input => {
-        input.addEventListener('input', () => {
-          heightRangeDisplay.textContent = `${minHeightInput.value}cm - ${maxHeightInput.value}cm`;
+      if (minHeightInput && maxHeightInput && heightRangeDisplay) {
+        [minHeightInput, maxHeightInput].forEach(input => {
+          input.addEventListener('input', () => {
+            heightRangeDisplay.textContent = `${minHeightInput.value}cm - ${maxHeightInput.value}cm`;
+          });
         });
-      });
-    }
-
-    if (minPriceInput && maxPriceInput && priceRangeDisplay) {
-      [minPriceInput, maxPriceInput].forEach(input => {
-        input.addEventListener('input', () => {
-          priceRangeDisplay.textContent = `$${minPriceInput.value} - $${maxPriceInput.value}`;
-        });
-      });
-    }
-
-    filterForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const formData = new FormData(filterForm);
-      const filters = {
-        minHeight: minHeightInput ? parseInt(minHeightInput.value) : 0,
-        maxHeight: maxHeightInput ? parseInt(maxHeightInput.value) : Infinity,
-        minPrice: minPriceInput ? parseFloat(minPriceInput.value) || 0 : 0,
-        maxPrice: maxPriceInput ? parseFloat(maxPriceInput.value) || Infinity : Infinity,
-        materials: formData.getAll('material'),
-        features: formData.getAll('feature')
-      };
-      if (typeof filterProducts === 'function') {
-        filterProducts(filters);
-      } else {
-        console.error('filterProducts function is not defined');
       }
-    });
+
+      if (minPriceInput && maxPriceInput && priceRangeDisplay) {
+        [minPriceInput, maxPriceInput].forEach(input => {
+          input.addEventListener('input', () => {
+            priceRangeDisplay.textContent = `$${minPriceInput.value} - $${maxPriceInput.value}`;
+          });
+        });
+      }
+
+      filterForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(filterForm);
+        const filters = {
+          minHeight: minHeightInput ? parseInt(minHeightInput.value) : 0,
+          maxHeight: maxHeightInput ? parseInt(maxHeightInput.value) : Infinity,
+          minPrice: minPriceInput ? parseFloat(minPriceInput.value) || 0 : 0,
+          maxPrice: maxPriceInput ? parseFloat(maxPriceInput.value) || Infinity : Infinity,
+          materials: formData.getAll('material'),
+          features: formData.getAll('feature')
+        };
+        if (typeof filterProducts === 'function') {
+          filterProducts(filters);
+        } else {
+          console.error('filterProducts function is not defined');
+        }
+      });
+    }
   }
 
   // Function to update filter displays
