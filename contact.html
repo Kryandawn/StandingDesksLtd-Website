@@ -84,7 +84,46 @@
             <p>&copy; 2023 Standing Desks Ltd. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Floating basket -->
+    <div id="floating-basket" class="hidden">
+        <div class="basket-header">
+            <h3>Your Basket</h3>
+            <button id="close-basket" class="close-btn">&times;</button>
+        </div>
+        <div id="basket-items"></div>
+        <div class="basket-footer">
+            <p>Total: <span id="basket-total">$0.00</span></p>
+            <button id="checkout-btn" class="btn-primary">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Modal for checkout -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Delivery Information</h2>
+            <form id="user-info-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit" class="btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+
     <script src="js/scripts.js" type="module"></script>
     <script src="js/form.js" type="module"></script>
+    <script src="js/basket.js" type="module"></script>
+    <script src="js/search.js" type="module"></script>
 </body>
 </html>
