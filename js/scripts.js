@@ -393,6 +393,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   // Function to populate the desk grid
   function populateDeskGrid(filteredProducts = products, activeCategory = 'All Desks') {
+    // Check if we're on the Contact page
+    if (window.location.pathname.includes('contact.html')) {
+      console.log('On Contact page, skipping desk grid population');
+      return;
+    }
+
     const deskGrid = document.getElementById('desk-grid') || document.getElementById('deskGrid');
     if (!deskGrid) {
       console.error('Desk grid element not found. Make sure the element with id "desk-grid" or "deskGrid" exists.');
@@ -535,47 +541,56 @@ function createProductHTML(product, isFeatured = false) {
   populateDeskGrid();
 
   // Add event listener for "Buy Now", "Add to Cart" buttons and category navigation
-  document.addEventListener('click', function(event) {
-    console.log('Click event detected:', event.target);
+  if (document.getElementById('desk-grid') || document.getElementById('category-nav')) {
+    document.addEventListener('click', function(event) {
+      console.log('Click event detected:', event.target);
 
-    if (event.target.classList.contains('buy-now-btn') || event.target.classList.contains('add-to-cart-btn')) {
-      console.log('Buy Now or Add to Cart button clicked');
-      const productId = parseInt(event.target.getAttribute('data-id'));
-      const price = parseFloat(event.target.getAttribute('data-price'));
-      if (event.target.classList.contains('buy-now-btn')) {
-        console.log('Buy Now clicked for product:', productId);
-        addItemToBasket(productId, price);
-        // Redirect to checkout page or show checkout modal
-        // TODO: Implement checkout functionality
-      } else {
-        console.log('Add to Cart clicked for product:', productId);
-        addItemToBasket(productId, price);
+      if (event.target.classList.contains('buy-now-btn') || event.target.classList.contains('add-to-cart-btn')) {
+        console.log('Buy Now or Add to Cart button clicked');
+        const productId = parseInt(event.target.getAttribute('data-id'));
+        const price = parseFloat(event.target.getAttribute('data-price'));
+        if (event.target.classList.contains('buy-now-btn')) {
+          console.log('Buy Now clicked for product:', productId);
+          addItemToBasket(productId, price);
+          // Redirect to checkout page or show checkout modal
+          // TODO: Implement checkout functionality
+        } else {
+          console.log('Add to Cart clicked for product:', productId);
+          addItemToBasket(productId, price);
+        }
+      } else if (event.target.closest('#category-nav')) {
+        const categoryLink = event.target.closest('a');
+        if (categoryLink) {
+          console.log('Category link clicked:', categoryLink);
+          event.preventDefault();
+          const category = categoryLink.getAttribute('data-category');
+          console.log('Updating category to:', category);
+          updateActiveCategory(category);
+          populateDeskGrid(products, category);
+        }
       }
-    } else if (event.target.closest('#category-nav')) {
-      const categoryLink = event.target.closest('a');
-      if (categoryLink) {
-        console.log('Category link clicked:', categoryLink);
-        event.preventDefault();
-        const category = categoryLink.getAttribute('data-category');
-        console.log('Updating category to:', category);
-        updateActiveCategory(category);
-        populateDeskGrid(products, category);
-      }
-    }
-  });
+    });
+  } else {
+    console.log('Product-related elements not found on this page');
+  }
 
   // Ensure category buttons are working
-  const categoryButtons = document.querySelectorAll('#category-nav a');
-  categoryButtons.forEach(button => {
-    console.log('Category button found:', button);
-    button.addEventListener('click', function(event) {
-      console.log('Category button clicked:', this);
-      event.preventDefault();
-      const category = this.getAttribute('data-category');
-      updateActiveCategory(category);
-      populateDeskGrid(products, category);
+  const categoryNav = document.getElementById('category-nav');
+  if (categoryNav) {
+    const categoryButtons = categoryNav.querySelectorAll('a');
+    categoryButtons.forEach(button => {
+      console.log('Category button found:', button);
+      button.addEventListener('click', function(event) {
+        console.log('Category button clicked:', this);
+        event.preventDefault();
+        const category = this.getAttribute('data-category');
+        updateActiveCategory(category);
+        populateDeskGrid(products, category);
+      });
     });
-  });
+  } else {
+    console.log('Category navigation not found on this page');
+  }
 
   function updateActiveCategory(category) {
     const categoryLinks = document.querySelectorAll('#category-nav a');
@@ -594,30 +609,38 @@ function createProductHTML(product, isFeatured = false) {
     const heightRangeDisplay = document.getElementById('height-range-display');
     const priceRangeDisplay = document.getElementById('price-range-display');
 
-    [minHeightInput, maxHeightInput].forEach(input => {
-      input.addEventListener('input', () => {
-        heightRangeDisplay.textContent = `${minHeightInput.value}cm - ${maxHeightInput.value}cm`;
+    if (minHeightInput && maxHeightInput && heightRangeDisplay) {
+      [minHeightInput, maxHeightInput].forEach(input => {
+        input.addEventListener('input', () => {
+          heightRangeDisplay.textContent = `${minHeightInput.value}cm - ${maxHeightInput.value}cm`;
+        });
       });
-    });
+    }
 
-    [minPriceInput, maxPriceInput].forEach(input => {
-      input.addEventListener('input', () => {
-        priceRangeDisplay.textContent = `$${minPriceInput.value} - $${maxPriceInput.value}`;
+    if (minPriceInput && maxPriceInput && priceRangeDisplay) {
+      [minPriceInput, maxPriceInput].forEach(input => {
+        input.addEventListener('input', () => {
+          priceRangeDisplay.textContent = `$${minPriceInput.value} - $${maxPriceInput.value}`;
+        });
       });
-    });
+    }
 
     filterForm.addEventListener('submit', function(event) {
       event.preventDefault();
       const formData = new FormData(filterForm);
       const filters = {
-        minHeight: parseInt(minHeightInput.value),
-        maxHeight: parseInt(maxHeightInput.value),
-        minPrice: parseFloat(minPriceInput.value) || 0,
-        maxPrice: parseFloat(maxPriceInput.value) || Infinity,
+        minHeight: minHeightInput ? parseInt(minHeightInput.value) : 0,
+        maxHeight: maxHeightInput ? parseInt(maxHeightInput.value) : Infinity,
+        minPrice: minPriceInput ? parseFloat(minPriceInput.value) || 0 : 0,
+        maxPrice: maxPriceInput ? parseFloat(maxPriceInput.value) || Infinity : Infinity,
         materials: formData.getAll('material'),
         features: formData.getAll('feature')
       };
-      filterProducts(filters);
+      if (typeof filterProducts === 'function') {
+        filterProducts(filters);
+      } else {
+        console.error('filterProducts function is not defined');
+      }
     });
   }
 
