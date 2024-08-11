@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standing Desks Ltd - Contact Us</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/basket.css">
+    <link rel="stylesheet" href="css/main-content.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <div id="logo">
+                <img src="images/logo.png" alt="Standing Desks Ltd Logo" width="200" height="50">
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rising_desks.html">Rising Desks</a></li>
+                <li><a href="health_benefits.html">Health Benefits</a></li>
+                <li><a href="contact.html" class="active">Contact Us</a></li>
+                <li><a href="#" id="basket-icon"><i class="fas fa-shopping-cart"></i> <span id="basket-count">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="contact-form-section">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                    <span class="error-message" id="first-name-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                    <span class="error-message" id="last-name-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="email-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <span class="error-message" id="message-error"></span>
+                </div>
+                <button type="submit" id="submit-button" class="btn-primary">Submit</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Standing Desks Ltd is committed to providing high-quality rising desks for a healthier work environment.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rising_desks.html">Rising Desks</a></li>
+                    <li><a href="health_benefits.html">Health Benefits</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Standing Desks Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/scripts.js" type="module"></script>
+    <script src="js/form.js" type="module"></script>
+</body>
+</html>

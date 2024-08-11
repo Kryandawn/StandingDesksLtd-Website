@@ -1,0 +1,108 @@
+/* Category navigation styling */
+#category-nav {
+    background-color: var(--secondary-color);
+    padding: 1em 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    overflow-x: auto;
+}
+
+#category-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    max-width: 1200px;
+    -webkit-overflow-scrolling: touch;
+}
+
+#category-nav li {
+    margin: 0 0.5em;
+    flex: 0 0 auto;
+}
+
+#category-nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    padding: 0.7em 1.2em;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+#category-nav a:hover {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: var(--accent-color);
+}
+
+#category-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+#category-nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+#category-nav a.active {
+    color: var(--accent-color);
+    background-color: rgba(255, 107, 107, 0.2);
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+    border-bottom: 3px solid var(--accent-color);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+#category-nav a.active:hover {
+    background-color: rgba(255, 107, 107, 0.3);
+}
+
+#category-nav a.active::after {
+    width: 100%;
+    left: 0;
+    height: 4px;
+}
+
+@media (min-width: 769px) {
+    #category-nav {
+        overflow-x: visible;
+    }
+
+    #category-nav ul {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    #category-nav ul {
+        justify-content: flex-start;
+        padding: 0 1em;
+    }
+
+    #category-nav li {
+        margin: 0 0.3em;
+    }
+
+    #category-nav a {
+        padding: 0.5em 0.8em;
+        font-size: 1em;
+    }
+}

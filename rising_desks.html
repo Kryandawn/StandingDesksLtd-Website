@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our wide range of high-quality rising desks for a healthier and more productive work environment. Standing Desks Ltd offers ergonomic solutions for every workspace.">
+    <title>Rising Desks | Standing Desks Ltd - Ergonomic Workspace Solutions</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/basket.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/main-content.css">
+    <link rel="stylesheet" href="css/product-grid.css">
+    <link rel="stylesheet" href="css/featured-product.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <div id="logo">
+                <img src="images/logo.png" alt="Standing Desks Ltd Logo" width="200" height="50">
+            </div>
+            <div id="search-container">
+                <div id="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search desks...">
+                    <button id="searchButton" class="btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="rising_desks.html" class="active">Rising Desks</a></li>
+                <li><a href="health_benefits.html">Health Benefits</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="#" id="basket-icon" aria-label="Shopping basket"><i class="fas fa-shopping-cart"></i> <span id="basket-count" class="badge">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2 class="page-title">Explore Our Rising Desks</h2>
+        <div class="main-content">
+            <aside id="filter-sidebar">
+                <h3>Filter Options</h3>
+                <form id="filter-form">
+                    <fieldset>
+                        <legend>Price Range</legend>
+                        <input type="range" id="min-price" name="min-price" min="0" max="2000" step="50">
+                        <input type="range" id="max-price" name="max-price" min="0" max="2000" step="50">
+                        <div id="price-range-display"></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Desk Type</legend>
+                        <label><input type="checkbox" name="desk-type" value="standing"> Standing</label>
+                        <label><input type="checkbox" name="desk-type" value="sit-stand"> Sit-Stand</label>
+                        <label><input type="checkbox" name="desk-type" value="corner"> Corner</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Material</legend>
+                        <label><input type="checkbox" name="material" value="wood"> Wood</label>
+                        <label><input type="checkbox" name="material" value="metal"> Metal</label>
+                        <label><input type="checkbox" name="material" value="glass"> Glass</label>
+                    </fieldset>
+                    <button type="submit" class="btn-primary">Apply Filters</button>
+                </form>
+            </aside>
+            <div class="desk-content">
+                <h2>Featured Product</h2>
+                <section id="featured-product" class="featured-product">
+                    <div class="featured-product-content">
+                        <div class="featured-product-image">
+                            <img src="images/premium-floor-standing-desk.jpg" alt="Featured Rising Desk" width="400" height="300">
+                            <span class="featured-badge">Featured</span>
+                        </div>
+                        <div class="featured-product-details">
+                            <h3>Premium Electric Rising Desk</h3>
+                            <p class="description">Experience the ultimate in comfort and productivity with our top-of-the-line electric rising desk. Featuring smooth height adjustment, spacious work surface, and built-in cable management.</p>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check"></i> Height range: 60-180cm</li>
+                                <li><i class="fas fa-check"></i> Dual motor system for stability</li>
+                                <li><i class="fas fa-check"></i> 4 programmable memory settings</li>
+                                <li><i class="fas fa-check"></i> Anti-collision technology</li>
+                                <li><i class="fas fa-check"></i> Built-in USB charging ports</li>
+                                <li><i class="fas fa-check"></i> 10-year warranty</li>
+                            </ul>
+                            <p class="price">$699.99 <span class="original-price">$899.99</span></p>
+                            <div class="rating">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="review-count">(128 reviews)</span>
+                            </div>
+                            <div class="product-buttons">
+                                <button class="btn-primary add-to-cart" data-id="1" data-price="699.99">Add to Cart</button>
+                                <button class="btn-secondary buy-now" data-id="1" data-price="699.99">Buy Now</button>
+                            </div>
+                            <p class="shipping-info"><i class="fas fa-truck"></i> Free shipping on orders over $500</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="desk-grid">
+                    <!-- Desk items will be dynamically populated here by JavaScript -->
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Standing Desks Ltd is committed to providing high-quality rising desks for a healthier work environment.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rising_desks.html">Rising Desks</a></li>
+                    <li><a href="health_benefits.html">Health Benefits</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Standing Desks Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+    <div id="floating-basket" class="hidden">
+        <div class="basket-header">
+            <h3>Your Basket</h3>
+            <button id="close-basket" class="close-btn" aria-label="Close basket"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="basket-items"></div>
+        <div class="basket-footer">
+            <p>Total: <span id="basket-total">$0.00</span></p>
+            <button id="checkout-btn" class="btn-primary">Proceed to Checkout</button>
+        </div>
+    </div>
+    <!-- Modal for user information during checkout -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Delivery Information</h2>
+            <form id="user-info-form">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit" class="btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/basket.js" type="module"></script>
+    <script src="js/form.js" type="module"></script>
+    <script src="js/productDisplay.js" type="module"></script>
+    <script src="js/search.js" type="module"></script>
+</body>
+</html>
